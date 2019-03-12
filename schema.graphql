@@ -1,0 +1,11 @@
+scalar UUID
+
+type Query {
+  regions: [Region!]!
+}
+
+type Region {
+  id: UUID!
+  name: Int!
+  price: Float!
+}
