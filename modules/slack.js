@@ -1,16 +1,20 @@
 const { WebClient } = require('@slack/client');
 
-function sendToSlackChannel(message, config) {
-  const web = new WebClient(config.options.slack.token);
-  const conversationId = config.options.slack.chatId;
+function sendToSlackChannel(message, config, onSuccess, onError) {
+  const web = new WebClient(config.slack.token);
+  const conversationId = config.slack.channelId;
 
   (async () => {
-    const res = await web.chat.postMessage({
-      channel: conversationId,
-      text: message
-    });
+    try {
+      await web.chat.postMessage({
+        channel: conversationId,
+        text: message
+      });
 
-    console.log('Message sent: ', res.ts);
+      onSuccess();
+    } catch (e) {
+      onError(e);
+    }
   })();
 }
 
