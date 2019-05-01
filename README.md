@@ -60,7 +60,9 @@ our module is called  `schemaDiffBot` so, you can create:
     changed: ":exclamation:",
     removed: ":fire:",
     added: ":white_check_mark:"
-  }
+  },
+  // if true, when has differences the process will stop, useful to run in CI process
+  stopProcessIfHasDifferences: "false"
 }
 ```
 

@@ -42,10 +42,18 @@ const spinner = ora('getting config file...').start();
     programVariables.config
   );
 
+  const onMessageSentWithSuccess = () => {
+    spinner.succeed('Message sent to slack.').stop();
+
+    if (programVariables.config.stopProcessIfHasDifferences) {
+      process.exit(-1);
+    }
+  };
+
   slack.sendToSlackChannel(
     mountedMessage,
     programVariables.config,
-    () => spinner.succeed('Message sent to slack.').stop(),
+    onMessageSentWithSuccess,
     error => spinner.fail(`Something went wrong\n${error}`).stop()
   );
 })();
